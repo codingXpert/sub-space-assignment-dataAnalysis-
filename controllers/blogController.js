@@ -17,6 +17,7 @@ module.exports.fetchData = async (req, res) => {
             const totalBlogs = _.size(blogs);
             const longestTitle = _.maxBy(blogs, (blog) => blog.title.length);
             const blogsWithPrivacy = _.filter(blogs, blog => _.includes(blog.title.toLowerCase(), 'privacy'));
+            const numberOfBlogsWithPrivacy = _.size(blogsWithPrivacy)
             // const blogsWithPrivacy = blogs.filter(blog => blog.title.toLowerCase().includes('privacy'));
             // const uniqueBlogsTitle = Array.from(new Set(blogs.map(blog => blog.title)));
             const uniqueBlogsTitle = _.chain(blogs)
@@ -27,7 +28,7 @@ module.exports.fetchData = async (req, res) => {
             return res.send({
                 status: 'success',
                 uniqueBlogsTitle,
-                blogsWithPrivacy,
+                numberOfBlogsWithPrivacy,
                 totalBlogs,
                 longestTitle,
                 blogs,
