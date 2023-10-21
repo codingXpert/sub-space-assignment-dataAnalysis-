@@ -15,7 +15,7 @@ module.exports.fetchData = async (req, res) => {
         } else {
             const blogs = response.data.blogs;
             const totalBlogs = _.size(blogs);
-            const longestTitle = _.maxBy(blogs, (blog) => blog.title.length);
+            const longestTitle = _.maxBy(blogs, (blog) => blog.title.length).title;
             const blogsWithPrivacy = _.filter(blogs, blog => _.includes(blog.title.toLowerCase(), 'privacy'));
             const numberOfBlogsWithPrivacy = _.size(blogsWithPrivacy)
             // const blogsWithPrivacy = blogs.filter(blog => blog.title.toLowerCase().includes('privacy'));
@@ -24,15 +24,15 @@ module.exports.fetchData = async (req, res) => {
                 .uniqBy('title')
                 .map('title')
                 .value();
-            
-            return res.send({
-                status: 'success',
-                uniqueBlogsTitle,
-                numberOfBlogsWithPrivacy,
-                totalBlogs,
-                longestTitle,
-                blogs,
-            });
+
+            let responseData = {
+                totalBlogs: totalBlogs,
+                longestTitle: longestTitle,
+                numberOfBlogsWithPrivacy: numberOfBlogsWithPrivacy,
+                uniqueBlogTitle: uniqueBlogsTitle
+            }    
+
+            return res.send(responseData);
         }
     } catch (error) {
         console.log('Error', error.message);
