@@ -71,5 +71,8 @@ module.exports.searchData = async (req, res) => {
 
       return res.send(searchBlog);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log("Error", error.message);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 };
