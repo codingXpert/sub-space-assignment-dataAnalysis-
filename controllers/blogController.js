@@ -50,9 +50,8 @@ module.exports.searchData = async(req, res) => {
             return res.send({ message: 'No data is available' });
         } else {
             const query = req.query.query;
-            console.log(query);
             const blogs = response.data.blogs;
-            const searchBlog = blogs.filter(blog => blog.title.toLowerCase().includes(query.toLowerCase()));
+            const searchBlog = blogs.filter(blog => new RegExp(query, 'i').test([blog.title, blog.image_url]));
     
             return res.send(searchBlog);
         }
