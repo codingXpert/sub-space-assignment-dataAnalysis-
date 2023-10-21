@@ -14,11 +14,13 @@ module.exports.fetchData = async (req, res) => {
             return res.send({ message: 'No data is available' });
         } else {
             const blogs = response.data.blogs;
-            const totalBlogs = _.size(blogs)
+            const totalBlogs = _.size(blogs);
+            const longestTitle = _.maxBy(blogs, (blog) => blog.title.length);
             return res.send({
                 totalBlogs,
+                longestTitle,
                 status: 'success',
-                blogs
+                blogs,
             });
         }
     } catch (error) {
