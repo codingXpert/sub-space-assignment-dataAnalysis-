@@ -16,7 +16,9 @@ module.exports.fetchData = async (req, res) => {
             const blogs = response.data.blogs;
             const totalBlogs = _.size(blogs);
             const longestTitle = _.maxBy(blogs, (blog) => blog.title.length);
-            const blogsWithPrivacy = blogs.filter(blog => blog.title.toLowerCase().includes('privacy'));
+            const blogsWithPrivacy = _.filter(blogs, blog => _.includes(blog.title.toLowerCase(), 'privacy'));
+            // const blogsWithPrivacy = blogs.filter(blog => blog.title.toLowerCase().includes('privacy'));
+            
             return res.send({
                 blogsWithPrivacy,
                 totalBlogs,
