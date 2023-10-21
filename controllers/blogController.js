@@ -1,5 +1,6 @@
 const axios = require('axios');
 const express = require('express');
+const _ = require("lodash"); 
 const app = express();
 
 //API to fetch the data
@@ -12,10 +13,12 @@ module.exports.fetchData = async (req, res) => {
         if (!response) {
             return res.send({ message: 'No data is available' });
         } else {
-            const blogs = response.data;
+            const blogs = response.data.blogs;
+            const totalBlogs = _.size(blogs)
             return res.send({
+                totalBlogs,
                 status: 'success',
-                data: blogs
+                blogs
             });
         }
     } catch (error) {
