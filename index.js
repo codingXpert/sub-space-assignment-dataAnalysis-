@@ -4,7 +4,7 @@ const port = 8000;
 
 
 
-
+app.use("/", require('./routes'));
 
 app.listen(port, (err) => {
     if(err){
